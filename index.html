@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn AI Agent - Discover AI Tools</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -100px;
+            left: -100px;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            bottom: -50px;
+            right: -50px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            padding: 40px 20px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .tab-btn {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .tab-btn:hover:not(.active) {
+            opacity: 0.7;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            border: 1px solid #374151;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+
+        .card-header {
+            padding: 24px;
+            border-bottom: 1px solid #374151;
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+        }
+
+        .card-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .card-developer {
+            font-size: 0.9rem;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        .card-description {
+            color: #d1d5db;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            min-height: 60px;
+        }
+
+        .visit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .visit-btn:hover {
+            transform: translateX(2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .visit-btn:active {
+            transform: scale(0.98);
+        }
+
+        .category-badge {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 8px;
+            text-transform: uppercase;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .tab-container {
+                overflow-x: auto;
+                scroll-behavior: smooth;
+            }
+
+            .tabs {
+                display: flex;
+                gap: 20px;
+                min-width: min-content;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-white">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Learn AI Agent</h1>
+            <p class="hero-subtitle">Explore the best AI tools and technologies</p>
+            <p class="text-gray-200 text-sm">Discover cutting-edge AI solutions for every need</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <!-- Category Tabs -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-100">Filter by Category</h2>
+            <div class="tab-container">
+                <div class="tabs flex gap-4 flex-wrap">
+                    <button 
+                        class="tab-btn active pb-2 text-lg font-semibold text-gray-300 hover:text-white" 
+                        data-category="all"
+                    >
+                        All Tools
+                    </button>
+                    <button 
+                        class="tab-btn pb-2 text-lg font-semibold text-gray-300 hover:text-white" 
+                        data-category="Chatbots & LLMs"
+                    >
+                        💬 Chatbots & LLMs
+                    </button>
+                    <button 
+                        class="tab-btn pb-2 text-lg font-semibold text-gray-300 hover:text-white" 
+                        data-category="Image Generation"
+                    >
+                        🎨 Image Generation
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tools Grid -->
+        <div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Cards will be generated by JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-12">
+            <p class="text-xl text-gray-400">No tools found in this category.</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-gray-400 text-sm">
+                © 2024 Learn AI Agent. Discover and explore amazing AI tools.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // AI Tools Data
+        const tools = [
+            {
+                id: 1,
+                category: "Chatbots & LLMs",
+                name: "Gemini",
+                developer: "Google",
+                description: "एडवांस्ड रिसर्च, गूगल टूल्स इंटीग्रेशन और मल्टीमॉडल टास्क के लिए बेस्ट एआई।",
+                link: "https://gemini.google.com"
+            },
+            {
+                id: 2,
+                category: "Chatbots & LLMs",
+                name: "ChatGPT",
+                developer: "OpenAI",
+                description: "कंटेंट राइटिंग, कोडिंग और रोज़मर्रा के सवालों के जवाब पाने के लिए दुनिया का सबसे पॉपुलर टूल।",
+                link: "https://chat.openai.com"
+            },
+            {
+                id: 3,
+                category: "Image Generation",
+                name: "Midjourney",
+                developer: "Midjourney Inc.",
+                description: "टेक्स्ट प्रॉम्प्ट से एकदम रियलिस्टिक और हाई-क्वालिटी सिनेमैटिक इमेजेस बनाने के लिए बेस्ट टूल।",
+                link: "https://www.midjourney.com"
+            }
+        ];
+
+        let currentCategory = 'all';
+
+        // Render Tools
+        function renderTools(category) {
+            const grid = document.getElementById('toolsGrid');
+            const emptyState = document.getElementById('emptyState');
+            
+            let filteredTools = tools;
+            if (category !== 'all') {
+                filteredTools = tools.filter(tool => tool.category === category);
+            }
+
+            if (filteredTools.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = filteredTools.map(tool => `
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h3 class="card-name">${tool.name}</h3>
+                        <p class="card-developer">by ${tool.developer}</p>
+                        <span class="category-badge">${tool.category}</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">${tool.description}</p>
+                        <a 
+                            href="${tool.link}" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            class="visit-btn"
+                        >
+                            Visit Tool →
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Handle Tab Clicks
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.tab-btn').forEach(b => {
+                    b.classList.remove('active');
+                });
+
+                // Add active class to clicked button
+                this.classList.add('active');
+
+                // Update current category and render
+                currentCategory = this.dataset.category;
+                renderTools(currentCategory);
+            });
+        });
+
+        // Initial render
+        renderTools(currentCategory);
+
+        // Add smooth scroll behavior
+        document.documentElement.style.scrollBehavior = 'smooth';
+    </script>
+</body>
+</html>
