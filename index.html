@@ -1,301 +1,298 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learn AI Agent - Discover AI Tools</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.344.0/dist/umd/lucide.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #1e2640;
+            --text-color: #f3f4f6;
+            --text-muted: #9ca3af;
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
         }
 
-        body {
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding-bottom: 60px;
+        }
+
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 400px;
+            background: var(--gradient);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 8px auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
+            gap: 10px;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            top: -100px;
-            left: -100px;
+        .tabs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            scrollbar-width: none;
         }
 
-        .hero::after {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
-            bottom: -50px;
-            right: -50px;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            padding: 40px 20px;
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 900;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            letter-spacing: -1px;
-        }
-
-        .hero-subtitle {
-            font-size: 1.3rem;
-            opacity: 0.95;
-            margin-bottom: 20px;
-            font-weight: 300;
+        .tabs::-webkit-scrollbar {
+            display: none;
         }
 
         .tab-btn {
+            background: #171e30;
+            color: var(--text-muted);
+            border: 1px solid #2d3748;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            white-space: nowrap;
             transition: all 0.3s ease;
-            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .tab-btn.active {
-            color: #667eea;
-            border-bottom: 3px solid #667eea;
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
         }
 
-        .tab-btn:hover:not(.active) {
-            opacity: 0.7;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
         }
 
         .card {
-            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-            border: 1px solid #374151;
-            border-radius: 12px;
-            transition: all 0.3s ease;
+            background-color: var(--card-bg);
+            border-radius: 16px;
             overflow: hidden;
-            height: 100%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 1px solid #2d3748;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
-            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         }
 
         .card-header {
-            padding: 24px;
-            border-bottom: 1px solid #374151;
-            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+            padding: 20px;
+            background: rgba(0,0,0,0.15);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .card-name {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
         .card-developer {
-            font-size: 0.9rem;
-            color: #667eea;
+            font-size: 0.85rem;
+            color: var(--primary);
             font-weight: 600;
-        }
-
-        .card-body {
-            padding: 24px;
-        }
-
-        .card-description {
-            color: #d1d5db;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            min-height: 60px;
-        }
-
-        .visit-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            text-align: center;
-            font-size: 0.95rem;
-        }
-
-        .visit-btn:hover {
-            transform: translateX(2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        .visit-btn:active {
-            transform: scale(0.98);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
         }
 
         .category-badge {
             display: inline-block;
-            background: rgba(102, 126, 234, 0.2);
-            color: #667eea;
+            background: rgba(255,255,255,0.08);
             padding: 4px 12px;
             border-radius: 20px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            margin-top: 8px;
-            text-transform: uppercase;
+            color: var(--text-muted);
         }
 
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
+        .card-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .card-description {
+            font-size: 0.95rem;
+            color: #d1d5db;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
 
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2rem;
-            }
+        .visit-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: opacity 0.2s ease;
+        }
 
-            .hero-subtitle {
-                font-size: 1rem;
-            }
+        .visit-btn:hover {
+            opacity: 0.9;
+        }
 
-            .tab-container {
-                overflow-x: auto;
-                scroll-behavior: smooth;
-            }
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+        }
 
-            .tabs {
-                display: flex;
-                gap: 20px;
-                min-width: min-content;
-            }
+        .hidden {
+            display: none !important;
         }
     </style>
 </head>
-<body class="bg-gray-950 text-white">
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">Learn AI Agent</h1>
-            <p class="hero-subtitle">Explore the best AI tools and technologies</p>
-            <p class="text-gray-200 text-sm">Discover cutting-edge AI solutions for every need</p>
-        </div>
-    </section>
+<body>
 
-    <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <!-- Category Tabs -->
-        <div class="mb-12">
-            <h2 class="text-2xl font-bold mb-6 text-gray-100">Filter by Category</h2>
-            <div class="tab-container">
-                <div class="tabs flex gap-4 flex-wrap">
-                    <button 
-                        class="tab-btn active pb-2 text-lg font-semibold text-gray-300 hover:text-white" 
-                        data-category="all"
-                    >
-                        All Tools
-                    </button>
-                    <button 
-                        class="tab-btn pb-2 text-lg font-semibold text-gray-300 hover:text-white" 
-                        data-category="Chatbots & LLMs"
-                    >
-                        💬 Chatbots & LLMs
-                    </button>
-                    <button 
-                        class="tab-btn pb-2 text-lg font-semibold text-gray-300 hover:text-white" 
-                        data-category="Image Generation"
-                    >
-                        🎨 Image Generation
-                    </button>
-                </div>
-            </div>
+    <div class="hero">
+        <h1>Learn AI Agent</h1>
+        <p>Explore the best AI tools and technologies</p>
+        <p>Discover cutting-edge AI solutions for every need</p>
+    </div>
+
+    <div class="container">
+        <div class="section-title">
+            <span>Filter by Category</span>
         </div>
 
-        <!-- Tools Grid -->
-        <div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Cards will be generated by JavaScript -->
+        <div class="tabs">
+            <button class="tab-btn active" data-category="all">📥 All Tools</button>
+            <button class="tab-btn" data-category="chatbots">💬 Chatbots & LLMs</button>
+            <button class="tab-btn" data-category="image">🎨 Image Generation</button>
+            <button class="tab-between tab-btn" data-category="video">🎬 Video Creation</button>
+            <button class="tab-btn" data-category="audio">🎵 Voice & Audio</button>
+            <button class="tab-btn" data-category="research">📚 Research & Study</button>
         </div>
 
-        <!-- Empty State -->
-        <div id="emptyState" class="hidden text-center py-12">
-            <p class="text-xl text-gray-400">No tools found in this category.</p>
+        <div class="grid" id="toolsGrid">
+            <!-- Tools will be rendered by JavaScript -->
         </div>
-    </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 border-t border-gray-800 py-8 mt-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p class="text-center text-gray-400 text-sm">
-                © 2024 Learn AI Agent. Discover and explore amazing AI tools.
-            </p>
+        <div id="emptyState" class="empty-state hidden">
+            <p>इस केटेगरी में अभी कोई टूल उपलब्ध नहीं है।</p>
         </div>
-    </footer>
+    </div>
 
     <script>
-        // AI Tools Data
         const tools = [
             {
                 id: 1,
-                category: "Chatbots & LLMs",
+                category: "chatbots",
                 name: "Gemini",
-                developer: "Google",
-                description: "एडवांस्ड रिसर्च, गूगल टूल्स इंटीग्रेशन और मल्टीमॉडल टास्क के लिए बेस्ट एआई।",
+                developer: "by Google",
+                description: "गूगल का सबसे एडवांस्ड एआई मॉडल, जो टेक्स्ट, इमेज, वीडियो और कोड को आसानी से समझकर सटीक जवाब दे सकता है।",
                 link: "https://gemini.google.com"
             },
             {
                 id: 2,
-                category: "Chatbots & LLMs",
+                category: "chatbots",
                 name: "ChatGPT",
-                developer: "OpenAI",
-                description: "कंटेंट राइटिंग, कोडिंग और रोज़मर्रा के सवालों के जवाब पाने के लिए दुनिया का सबसे पॉपुलर टूल।",
+                developer: "by OpenAI",
+                description: "कंटेंट राइटिंग, कोडिंग और रोज़मर्रा के सवालों के जवाब पाने के लिए दुनिया का सबसे पॉपुलर और स्मार्ट एआई टूल।",
                 link: "https://chat.openai.com"
             },
             {
                 id: 3,
-                category: "Image Generation",
+                category: "chatbots",
+                name: "Claude",
+                developer: "by Anthropic",
+                description: "एंथ्रोपिक का यह टूल मुश्किल से मुश्किल कोडिंग, बड़ी फाइल्स को एनालाइज करने और इंसानों जैसी नेचुरल बातचीत के लिए बेस्ट है।",
+                link: "https://claude.ai"
+            },
+            {
+                id: 4,
+                category: "research",
+                name: "NotebookLM",
+                developer: "by Google",
+                description: "स्टूडेंट्स और रिसर्चर्स के लिए बेस्ट टूल। यह आपके नोट्स, पीडीएफ या यूट्यूब वीडियो को एआई पॉडकास्ट और समरी में बदल देता है।",
+                link: "https://notebooklm.google.com"
+            },
+            {
+                id: 5,
+                category: "image",
                 name: "Midjourney",
-                developer: "Midjourney Inc.",
-                description: "टेक्स्ट प्रॉम्प्ट से एकदम रियलिस्टिक और हाई-क्वालिटी सिनेमैटिक इमेजेस बनाने के लिए बेस्ट टूल।",
+                developer: "by Midjourney Inc.",
+                description: "सिर्फ टेक्स्ट प्रॉम्प्ट लिखकर एकदम रियलिस्टिक, हाई-क्वालिटी और सिनेमैटिक इमेजेस (HD Photos) जनरेट करने के लिए सबसे बेहतरीन टूल।",
                 link: "https://www.midjourney.com"
+            },
+            {
+                id: 6,
+                category: "video",
+                name: "Sora",
+                developer: "by OpenAI",
+                description: "ओपनएआई का क्रांतिकारी वीडियो जनरेटर, जो आपके लिखे टेक्स्ट को सीधे हॉलीवुड स्टाइल हाई-डेफिनिशन (HD) रियलिस्टिक वीडियो में बदल देता है।",
+                link: "https://openai.com/sora"
+            },
+            {
+                id: 7,
+                category: "audio",
+                name: "ElevenLabs",
+                developer: "by ElevenLabs",
+                description: "यूट्यूब शॉर्ट्स और वीडियो के लिए बेस्ट एआई वॉइस टूल। यह किसी भी टेक्स्ट को एकदम असली इंसानी आवाज़ (Voiceover) में बदल देता है।",
+                link: "https://elevenlabs.io"
             }
         ];
 
         let currentCategory = 'all';
 
-        // Render Tools
         function renderTools(category) {
             const grid = document.getElementById('toolsGrid');
             const emptyState = document.getElementById('emptyState');
@@ -313,20 +310,15 @@
 
             emptyState.classList.add('hidden');
             grid.innerHTML = filteredTools.map(tool => `
-                <div class="card fade-in">
+                <div class="card">
                     <div class="card-header">
                         <h3 class="card-name">${tool.name}</h3>
-                        <p class="card-developer">by ${tool.developer}</p>
-                        <span class="category-badge">${tool.category}</span>
+                        <p class="card-developer">${tool.developer}</p>
+                        <span class="category-badge">${tool.category.toUpperCase()}</span>
                     </div>
                     <div class="card-body">
                         <p class="card-description">${tool.description}</p>
-                        <a 
-                            href="${tool.link}" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            class="visit-btn"
-                        >
+                        <a href="${tool.link}" target="_blank" rel="noopener noreferrer" class="visit-btn">
                             Visit Tool →
                         </a>
                     </div>
@@ -334,28 +326,360 @@
             `).join('');
         }
 
-        // Handle Tab Clicks
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                // Remove active class from all buttons
-                document.querySelectorAll('.tab-btn').forEach(b => {
-                    b.classList.remove('active');
-                });
-
-                // Add active class to clicked button
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
-
-                // Update current category and render
+                
                 currentCategory = this.dataset.category;
                 renderTools(currentCategory);
             });
         });
 
         // Initial render
-        renderTools(currentCategory);
+        renderTools('all');
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn AI Agent - Discover AI Tools</title>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.344.0/dist/umd/lucide.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #1e2640;
+            --text-color: #f3f4f6;
+            --text-muted: #9ca3af;
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        }
 
-        // Add smooth scroll behavior
-        document.documentElement.style.scrollBehavior = 'smooth';
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding-bottom: 60px;
+        }
+
+        .hero {
+            background: var(--gradient);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 8px auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            scrollbar-width: none;
+        }
+
+        .tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            background: #171e30;
+            color: var(--text-muted);
+            border: 1px solid #2d3748;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 1px solid #2d3748;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        .card-header {
+            padding: 20px;
+            background: rgba(0,0,0,0.15);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .card-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .card-developer {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .category-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.08);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .card-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            color: #d1d5db;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .visit-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: opacity 0.2s ease;
+        }
+
+        .visit-btn:hover {
+            opacity: 0.9;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <h1>Learn AI Agent</h1>
+        <p>Explore the best AI tools and technologies</p>
+        <p>Discover cutting-edge AI solutions for every need</p>
+    </div>
+
+    <div class="container">
+        <div class="section-title">
+            <span>Filter by Category</span>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-category="all">📥 All Tools</button>
+            <button class="tab-btn" data-category="chatbots">💬 Chatbots & LLMs</button>
+            <button class="tab-btn" data-category="image">🎨 Image Generation</button>
+            <button class="tab-between tab-btn" data-category="video">🎬 Video Creation</button>
+            <button class="tab-btn" data-category="audio">🎵 Voice & Audio</button>
+            <button class="tab-btn" data-category="research">📚 Research & Study</button>
+        </div>
+
+        <div class="grid" id="toolsGrid">
+            <!-- Tools will be rendered by JavaScript -->
+        </div>
+
+        <div id="emptyState" class="empty-state hidden">
+            <p>इस केटेगरी में अभी कोई टूल उपलब्ध नहीं है।</p>
+        </div>
+    </div>
+
+    <script>
+        const tools = [
+            {
+                id: 1,
+                category: "chatbots",
+                name: "Gemini",
+                developer: "by Google",
+                description: "गूगल का सबसे एडवांस्ड एआई मॉडल, जो टेक्स्ट, इमेज, वीडियो और कोड को आसानी से समझकर सटीक जवाब दे सकता है।",
+                link: "https://gemini.google.com"
+            },
+            {
+                id: 2,
+                category: "chatbots",
+                name: "ChatGPT",
+                developer: "by OpenAI",
+                description: "कंटेंट राइटिंग, कोडिंग और रोज़मर्रा के सवालों के जवाब पाने के लिए दुनिया का सबसे पॉपुलर और स्मार्ट एआई टूल।",
+                link: "https://chat.openai.com"
+            },
+            {
+                id: 3,
+                category: "chatbots",
+                name: "Claude",
+                developer: "by Anthropic",
+                description: "एंथ्रोपिक का यह टूल मुश्किल से मुश्किल कोडिंग, बड़ी फाइल्स को एनालाइज करने और इंसानों जैसी नेचुरल बातचीत के लिए बेस्ट है।",
+                link: "https://claude.ai"
+            },
+            {
+                id: 4,
+                category: "research",
+                name: "NotebookLM",
+                developer: "by Google",
+                description: "स्टूडेंट्स और रिसर्चर्स के लिए बेस्ट टूल। यह आपके नोट्स, पीडीएफ या यूट्यूब वीडियो को एआई पॉडकास्ट और समरी में बदल देता है।",
+                link: "https://notebooklm.google.com"
+            },
+            {
+                id: 5,
+                category: "image",
+                name: "Midjourney",
+                developer: "by Midjourney Inc.",
+                description: "सिर्फ टेक्स्ट प्रॉम्प्ट लिखकर एकदम रियलिस्टिक, हाई-क्वालिटी और सिनेमैटिक इमेजेस (HD Photos) जनरेट करने के लिए सबसे बेहतरीन टूल।",
+                link: "https://www.midjourney.com"
+            },
+            {
+                id: 6,
+                category: "video",
+                name: "Sora",
+                developer: "by OpenAI",
+                description: "ओपनएआई का क्रांतिकारी वीडियो जनरेटर, जो आपके लिखे टेक्स्ट को सीधे हॉलीवुड स्टाइल हाई-डेफिनिशन (HD) रियलिस्टिक वीडियो में बदल देता है।",
+                link: "https://openai.com/sora"
+            },
+            {
+                id: 7,
+                category: "audio",
+                name: "ElevenLabs",
+                developer: "by ElevenLabs",
+                description: "यूट्यूब शॉर्ट्स और वीडियो के लिए बेस्ट एआई वॉइस टूल। यह किसी भी टेक्स्ट को एकदम असली इंसानी आवाज़ (Voiceover) में बदल देता है।",
+                link: "https://elevenlabs.io"
+            }
+        ];
+
+        let currentCategory = 'all';
+
+        function renderTools(category) {
+            const grid = document.getElementById('toolsGrid');
+            const emptyState = document.getElementById('emptyState');
+            
+            let filteredTools = tools;
+            if (category !== 'all') {
+                filteredTools = tools.filter(tool => tool.category === category);
+            }
+
+            if (filteredTools.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = filteredTools.map(tool => `
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-name">${tool.name}</h3>
+                        <p class="card-developer">${tool.developer}</p>
+                        <span class="category-badge">${tool.category.toUpperCase()}</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">${tool.description}</p>
+                        <a href="${tool.link}" target="_blank" rel="noopener noreferrer" class="visit-btn">
+                            Visit Tool →
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                currentCategory = this.dataset.category;
+                renderTools(currentCategory);
+            });
+        });
+
+        // Initial render
+        renderTools('all');
     </script>
 </body>
 </html>
