@@ -1,3 +1,23 @@
+<div class="search-container" style="text-align: center; margin: 20px 0;">
+    <input type="text" id="tool-search" placeholder="यहाँ एआई टूल का नाम सर्च करें, भाई..." 
+           style="padding: 12px 20px; width: 80%; max-width: 500px; border-radius: 25px; border: 2px solid #6f42c1; background-color: #1a1a1a; color: white; font-size: 16px; outline: none;">
+</div>
+// सर्च बार को काम कराने का लॉजिक
+document.getElementById('tool-search').addEventListener('input', function(e) {
+    const searchTerm = e.target.value.toLowerCase(); // यूजर जो टाइप कर रहा है
+    const toolCards = document.querySelectorAll('.tool-card'); // आपके सारे टूल कार्ड्स
+
+    toolCards.forEach(card => {
+        const toolName = card.querySelector('h3').textContent.toLowerCase(); // टूल का नाम
+        
+        // अगर नाम मैच होता है तो दिखाओ, नहीं तो छुपा दो
+        if (toolName.includes(searchTerm)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+});
 // 1. प्रीमियम यूजर चेक करने का पहरेदार (अभी false है)
 let isPremiumUser = false; 
 
