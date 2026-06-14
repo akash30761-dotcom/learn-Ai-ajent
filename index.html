@@ -1,3 +1,23 @@
+// 1. प्रीमियम यूजर चेक करने का पहरेदार (अभी false है)
+let isPremiumUser = false; 
+
+// 2. बटन्स को काम कराने वाला असली फंक्शन
+function openTool(toolName, isFree) {
+    if (!isFree && !isPremiumUser) {
+        // अगर टूल प्रीमियम है (isFree = false) और यूजर ने पेमेंट नहीं किया है
+        alert("भाई, " + toolName + " एक प्रीमियम टूल है! सीखने के लिए नीचे Premium Club ज्वाइन करें।");
+        
+        // यह लाइन यूजर को अपने आप घसीटकर नीचे $20 वाले प्रीमियम क्लब सेक्शन पर ले जाएगी
+        const premiumSection = document.getElementById('premium-section') || document.querySelector('.vip-membership');
+        if (premiumSection) {
+            premiumSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    } else {
+        // अगर टूल फ्री है, या यूजर प्रीमियम है, तो सीधे उसे सीखने वाले पेज पर भेजें
+        // उदाहरण के लिए: learn.html?tool=ChatGPT
+        window.location.href = `learn.html?tool=${encodeURIComponent(toolName)}`;
+    }
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
