@@ -183,4 +183,37 @@ function openTool(toolName, isFree) {
         }
     </script>
 </body>
-</html>
+</html><div class="search-container" style="text-align: center; margin: 20px 0;">
+    <input type="text" id="tool-search" placeholder="यहाँ एआई टूल का नाम सर्च करें, भाई..." 
+           style="padding: 12px 20px; width: 80%; max-width: 500px; border-radius: 25px; border: 2px solid #6f42c1; background-color: #1a1a1a; color: white; font-size: 16px; outline: none;">
+</div><script>
+// जो टूल्स का एरे (tools = [...]) पहले से था, उसके ठीक नीचे ये फंक्शन्स होने चाहिए
+
+let isPremiumUser = false; 
+
+function openTool(toolName, isFree) {
+    if (!isFree && !isPremiumUser) {
+        alert("भाई, " + toolName + " एक प्रीमियम टूल है! सीखने के लिए नीचे Premium Club ज्वाइन करें।");
+        const premiumSection = document.getElementById('premium-section') || document.querySelector('.vip-membership');
+        if (premiumSection) {
+            premiumSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    } else {
+        window.location.href = `learn.html?tool=${encodeURIComponent(toolName)}`;
+    }
+}
+
+document.getElementById('tool-search').addEventListener('input', function(e) {
+    const searchTerm = e.target.value.toLowerCase();
+    const toolCards = document.querySelectorAll('.card'); // आपके कोड के हिसाब से यहाँ .card है
+
+    toolCards.forEach(card => {
+        const toolName = card.querySelector('h3').textContent.toLowerCase();
+        if (toolName.includes(searchTerm)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+});
+</script>
